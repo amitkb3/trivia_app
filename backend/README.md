@@ -167,6 +167,36 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
   "total_questions": 19
 }
 ```
+* POST "/questions"
+    - Adds a questions to the database
+    - Request Body:
+      `question`: Question statement    
+      `answer`: Answer statement
+      `category`: Category ID
+      `difficulty`: Difficulty Level
+
+```json5
+{
+  "question": "Capital of India?",
+  "answer": "New Delhi",
+  "difficulty": 1,
+  "category": 3
+}
+```
+  - Response Body:
+      `created`: Id of new question saved to the database
+
+```json5
+{
+  "success": true,
+  "created": 20
+}
+```
+
+
+
+
+
 
 ```
 
