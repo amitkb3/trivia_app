@@ -168,8 +168,9 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 }
 ```
 * POST "/questions"
-    - Adds a questions to the database
+    - Adds a question to the database
     - Request Body:
+
       `question`: Question statement    
       `answer`: Answer statement
       `category`: Category ID
@@ -184,17 +185,28 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 }
 ```
   - Response Body:
-      `created`: Id of new question saved to the database
+
+      `created`:  Question Id of new question saved to the database
 
 ```json5
 {
   "success": true,
-  "created": 20
+  "created": 22
 }
 ```
+* DELETE "/questions/<int:question_id>"
+    - Deletes a question from the database
+    - Request Parameters: `question_id`: Question ID to delete
+    - Response Body:
 
+    `deleted`: Question ID that is deleted
 
-
+```json5
+{
+  "success": true,
+  "deleted": 22
+}
+```
 
 
 
