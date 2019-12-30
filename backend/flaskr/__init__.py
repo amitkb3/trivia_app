@@ -53,18 +53,7 @@ def create_app(test_config=None):
       'total_categories': len(results)
     })
 
-  '''
-  @TODO: 
-  Create an endpoint to handle GET requests for questions, 
-  including pagination (every 10 questions). 
-  This endpoint should return a list of questions, 
-  number of total questions, current category, categories. 
-
-  TEST: At this point, when you start the application
-  you should see questions and categories generated,
-  ten questions per page and pagination at the bottom of the screen for three pages.
-  Clicking on the page numbers should update the questions. 
-  '''
+  
   # Endpoint route handler for GET request for questions
   @app.route('/questions')
   def get_all_questions():
@@ -89,13 +78,7 @@ def create_app(test_config=None):
       'current_category': None
     })  
 
-  '''
-  @TODO: 
-  Create an endpoint to DELETE question using a question ID. 
-
-  TEST: When you click the trash icon next to a question, the question will be removed.
-  This removal will persist in the database and when you refresh the page. 
-  '''
+  
   # API endpoint route handler to delete question usng question_id
   @app.route('/questions/<int:question_id>', methods=['DELETE'])
   def delete_question(question_id):
@@ -116,16 +99,7 @@ def create_app(test_config=None):
     except:
       abort(422)
 
-  '''
-  @TODO: 
-  Create an endpoint to POST a new question, 
-  which will require the question and answer text, 
-  category, and difficulty score.
-
-  TEST: When you submit a question on the "Add" tab, 
-  the form will clear and the question will appear at the end of the last page
-  of the questions list in the "List" tab.  
-  '''
+  
   # API endpoint route handler for creating new question
   @app.route('/questions', methods=['POST'])
   def create_question():
@@ -138,6 +112,8 @@ def create_app(test_config=None):
     new_answer = body.get('answer')
     new_category = body.get('category')
     new_difficulty = body.get('difficulty')
+    if (new_question == '') or (new_answer == '') or (new_category == '') or (new_difficulty == ''):
+      abort(400)
     try:
       question = Question(question = new_question, answer = new_answer,
                   category = new_category, difficulty = new_difficulty)
@@ -150,16 +126,7 @@ def create_app(test_config=None):
     except:
       abort(422)
 
-  '''
-  @TODO: 
-  Create a POST endpoint to get questions based on a search term. 
-  It should return any questions for whom the search term 
-  is a substring of the question. 
-
-  TEST: Search by any phrase. The questions list will update to include 
-  only question that include that string within their question. 
-  Try using the word "title" to start. 
-  '''
+  
   # API endpoint route handler for searching questions
   @app.route('/questions/search', methods=['POST'])
   def search_questions():
@@ -197,7 +164,12 @@ def create_app(test_config=None):
     :param category_id: The category for which questions are to be filtered
     :return: Filtered questions, total questions and current category
     """
-    try:
+    #tip: https://stackoverflow.com/questions/11530196/flask-sqlalchemy-query-specify-column-names
+    # seelct few columns nd aslo take care of tuples being created
+    categories = [category.id for category in Category.query.with_entities(Category.id)]
+    if category_id not in categories:
+      abort(400, 'Invalid category id')
+    try:      
       questions_results = Question.query.order_by(Question.id).filter(Question.category == category_id).all()
       category_questions = [question.format() for question in questions_results]
       return jsonify({
@@ -230,7 +202,7 @@ def create_app(test_config=None):
     body = request.get_json()
     previous_questions = body.get('previous_questions', None)
     quizCategory = body.get('quiz_category', None)
-    
+
     if quizCategory['id'] == 0:
       questions = Question.query.order_by(Question.id).all()
     else:
