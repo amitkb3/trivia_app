@@ -58,20 +58,21 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
   - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
   - Request Arguments: None
   - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-  
-  ```json
+
+```json5
 {
   "categories": {
     "1": "Science",
-    "2": "Art"
-  } 
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  }
 }
 ```
 
-
-
 ```
-
 
 ## Testing
 To run the tests, run
