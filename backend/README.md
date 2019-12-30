@@ -296,12 +296,18 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 }
 ```
 
-```
+
+
 ## Testing
 To run the tests, run
-```
+
+```json5
 dropdb trivia_test
+
 createdb trivia_test
+
 psql trivia_test < trivia.psql
+
 python test_flaskr.py
+
 ```
