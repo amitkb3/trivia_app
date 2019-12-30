@@ -199,7 +199,7 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
     - Request Parameters: `question_id`: Question ID to delete
     - Response Body:
 
-    `deleted`: Question ID that is deleted
+      `deleted`: Question ID that is deleted
 
 ```json5
 {
@@ -207,7 +207,23 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
   "deleted": 22
 }
 ```
+* POST "/questions/search"
+    - search questions based on search term
+    - Request Body:
+    
+      `searchTerm`: Search term
 
+```json5
+{
+  "searchTerm": "movie"
+}
+```
+
+  - Response Body:
+    
+    `questions`: List of questions found in search
+    
+    `total_questions`: Total number of  questions
 
 
 ```
