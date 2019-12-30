@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from werkzeug.exceptions import HTTPException
 import random
 
 from models import setup_db, Question, Category
@@ -69,15 +70,11 @@ def create_app(test_config=None):
   def get_all_questions():
     """
     Get all questions, categories and total questions from database
-    :return Questions or paginated questions if page query, categories and total questions
+    :return paginated ten questions, categories and total questions
     """
     questions_results = Question.query.order_by(Question.id).all()
     category_results = Category.query.order_by(Category.id).all()
-    page = int(request.args.get('page', '0'))
-    if page > 0:
-      current_questions = pagination_questions(request, questions_results)
-    else:
-      current_questions = [question.format() for question in questions_results]
+    current_questions = pagination_questions(request, questions_results)
     categories = {}
     for row in category_results:
       categories[row.id] = row.type
