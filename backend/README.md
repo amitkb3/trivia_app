@@ -225,6 +225,77 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
     
     `total_questions`: Total number of  questions
 
+```json5
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "current_category": null,
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": " What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }
+  ],
+  "success": true,
+  "total_questions": 1
+}
+```
+* GET "/categories/<int:category_id>/questions"
+    - Fetches questions for the requested category
+    - Request Parameters: `category_id`: Category ID for questions
+    - Response Body:
+
+    `questions`: List of category questions
+
+    `total_questions`: Total number of  questions
+    
+    `current_category`: Current category ID
+```json5
+{
+  "questions": [{
+    "answer": "Apollo 13",
+    "category": 5,
+    "difficulty": 4,
+    "id": 2,
+    "question": " What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+  }],
+  "total_questions": 1,
+  "current_category": 1
+}
+```
+
+* POST "/quizzes"
+    - Fetches a unique question for the quiz on selected category
+    - Request Body:
+    
+    `previous_questions`: List of previously answered questions
+
+    `quiz_category`: Category object of the quiz
+    - Response Body:
+    
+    `question`: question of requested category
+
+```json5
+{
+  "question": {
+    "answer": "Apollo 13",
+    "category": 5,
+    "difficulty": 4,
+    "id": 2,
+    "question": " What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+  }
+}
+```
+
 
 ```
 
