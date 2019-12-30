@@ -75,6 +75,8 @@ def create_app(test_config=None):
     questions_results = Question.query.order_by(Question.id).all()
     category_results = Category.query.order_by(Category.id).all()
     current_questions = pagination_questions(request, questions_results)
+    if len(current_questions) == 0:
+      abort(404)
     categories = {}
     for row in category_results:
       categories[row.id] = row.type
